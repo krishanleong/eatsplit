@@ -29,6 +29,7 @@ const initialFriends = [
 function App() {
   const [friends, setFriends] = useState(initialFriends);
   const [selected, setSelected] = useState(118836);
+  const [showAddFriends, setShowAddFriends] = useState(false);
   console.log(friends);
   function handleSelect(id) {
     setSelected(id);
@@ -51,6 +52,7 @@ function App() {
       })
     );
   }
+
   return (
     <div className="app">
       <div className="sidebar">
@@ -59,7 +61,13 @@ function App() {
           selected={selected}
           onHandleSelected={handleSelect}
         />
-        <FriendForm onHandleAddFriend={handleAddFriend} />
+        {showAddFriends && <FriendForm onHandleAddFriend={handleAddFriend} />}
+        <button
+          className="button"
+          onClick={() => setShowAddFriends(!showAddFriends)}
+        >
+          Add Friend
+        </button>
       </div>
       {friends.map((friend) => {
         if (friend.id === selected) {
